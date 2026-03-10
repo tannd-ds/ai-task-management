@@ -40,6 +40,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 import { TeamMembersPage } from './pages/TeamMembers';
+import { AIAnalysisPage } from './pages/AIAnalysis';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -445,7 +446,7 @@ const TasksPage = () => {
 };
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'dashboard' | 'tasks' | 'team'>('dashboard');
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'tasks' | 'team' | 'ai'>('dashboard');
 
   return (
     <div className="flex min-h-screen bg-background-light">
@@ -491,6 +492,16 @@ export default function App() {
           >
             <Users className="w-5 h-5" />
             <span className="text-sm font-bold">Team Members</span>
+          </button>
+          <button 
+            onClick={() => setCurrentPage('ai')}
+            className={cn(
+              "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
+              currentPage === 'ai' ? "bg-primary/10 text-primary" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+            )}
+          >
+            <BrainCircuit className="w-5 h-5" />
+            <span className="text-sm font-bold">AI Analysis</span>
           </button>
           {[
             { icon: Folder, label: 'Projects' },
@@ -545,6 +556,7 @@ export default function App() {
         {currentPage === 'dashboard' && <Dashboard />}
         {currentPage === 'tasks' && <TasksPage />}
         {currentPage === 'team' && <TeamMembersPage />}
+        {currentPage === 'ai' && <AIAnalysisPage />}
       </main>
     </div>
   );
